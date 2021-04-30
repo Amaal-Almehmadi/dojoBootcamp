@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Wishing App</title>
+</head>
+
+<body>
+    <h1>Hello {{ user.first_name}} !</h1>     
+    <form action='/logout' method='post'>
+        {% csrf_token %}
+        <input type='submit' value='Log Out'></form>
+        <form action='/stats' method='post'>
+            {% csrf_token %}
+            <input type='submit' value='view stats'>
+    </form>
+    <form action='/wishes/new' method='post'>
+        {% csrf_token %}
+        <input type='submit' value='Make a Wish'>
+    </form>
+    
+    <h3>Your wish list</h3>
+    <table>
+        <thead>
+            <th>Item</th>
+            <th>Date added</th>
+            <th>Actions</th>
+        </thead>
+        {% for wish in user_wishes %}
+        {% if wish not in granted %}
+        <tr>
+            <td>{{wish.name}}</td>
+            <td>{{wish.added_at|date:'F d, o' }}</td>
+            <td>
+                <a href="/wishes/{{wish.id}}/delete">Remove</a> |
+                <a href="/wishes/{{wish.id}}/edit">Edit</a>|
+                <a href="/wishes/{{wish.id}}/granted">Granted</a>
+            </td>
+        </tr>
+        {% endif %} {% endfor %}
+    </table>
+    <h3>Granted Wishes</h3>
+    <table>
+        <thead>
+            <th>Item</th>
+            <th>Wisher</th>
+            <th>Date added</th>
+            <th>Date Granted</th>
+            <th>likes</th>
+            <th>Actions</th>
+        </thead>
+        {% for wish in all_wish %}
+        {% if wish in granted %}
+        
+        
+        <tr>
+            <td>{{wish.name}}</td>
+            <td>{{wish.added_by.first_name}}</td>
+            <td>{{wish.added_at|date:'F d, o'}}</td>
+            <td>{{wish.granted_at |date:'F d, o'}}</td>
+            <td>{{wish.liked_by.count}}</td>
+            <td> {% if user not in wish.liked_by.all %}
+                <a href="/wishes/{{wish.id}}/like"> | Like it</a>
+                {% else %} | <a href="/wishes/{{wish.id}}/unlike">Unlike it</a>
+                {% endif %}</td>
+        </tr>
+        {% endif %}{% endfor %} 
+    </table>
+
+</body>
+
+</html>

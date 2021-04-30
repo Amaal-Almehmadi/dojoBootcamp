@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login and Registration</title>
+
+</head>
+
+<body>
+    <div style="display: flex;">
+        <div style="margin: 15px;">
+    <h1>Register</h1>
+    <table >
+    <form action="/register" method="POST">
+        {% csrf_token %}
+        <tr><td>First Name</td><td><input type="text" name="first_name" /></td></tr>
+        <tr><td>Last Name</td><td><input type="text" name="last_name" /></td></tr>
+        <tr><td>Email</td><td><input type="email" name="email" /></td></tr>
+        
+        <!-- <tr><td>Birthday</td><td><input type="date" name="birthday" value="{{today|date:'Y-m-d'}}" /></td></tr> -->
+        
+        <tr><td>Password</td><td><input type="password" name="password" /></td></tr>
+        <tr><td>Confirm Password</td><td><input type="password" name="confirm_pw" /></td></tr>
+        <tr><td></td><td><button type="submit">Register</button></td></tr>
+    </form></table>
+</div>
+    <div style="margin: 15px;">
+    <h1>Login</h1>
+    <table>
+    <form action="/login" method="POST">
+        {% csrf_token %}
+        <tr><td>Email</td><td><input type="email" name="email" /></td></tr>
+        <tr><td>Password</td><td><input type="text" name="password" /></td></tr>
+        <tr><td></td><td><button type="submit">Login</button></td></tr>
+    </form>
+</table>
+</div>
+</div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+
+</html>
