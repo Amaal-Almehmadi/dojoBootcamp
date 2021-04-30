@@ -1,0 +1,17 @@
+astroid==2.5.3
+bcrypt==3.2.0
+cffi==1.14.5
+colorama==0.4.4
+Django==2.2.4
+isort==5.8.0
+lazy-object-proxy==1.6.0
+mccabe==0.6.1
+pycparser==2.20
+pylint==2.7.4
+pylint-django==2.4.3
+pylint-plugin-utils==0.6
+pytz==2021.1
+six==1.15.0
+sqlparse==0.4.1
+toml==0.10.2
+wrapt==1.12.1
